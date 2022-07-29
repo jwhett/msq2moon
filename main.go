@@ -7,11 +7,19 @@ import (
 )
 
 type MSQ struct {
-	Notes [][]int `json:"notes"`
-	Loop  bool    `json:"loop"`
-	End   int     `json:"end"`
-	Tempo int     `json:"tempo"`
-	Beats int     `json:"beats"`
+	Notes []interface{} `json:"notes"`
+	Loop  bool          `json:"loop"`
+	End   int           `json:"end"`
+	Tempo interface{}   `json:"tempo"`
+	Beats int           `json:"beats"`
+}
+
+func (m *MSQ) Log() {
+	log.Printf("notes: %v", m.Notes)
+	log.Printf("loop: %v", m.Loop)
+	log.Printf("end: %v", m.End)
+	log.Printf("tempo: %v", m.Tempo)
+	log.Printf("beats: %v", m.Beats)
 }
 
 func main() {
@@ -26,9 +34,5 @@ func main() {
 		log.Fatal("Error parsing JSON data: ", err)
 	}
 
-	log.Printf("notes: %v", msq.Notes)
-	log.Printf("loop: %v", msq.Loop)
-	log.Printf("end: %v", msq.End)
-	log.Printf("tempo: %v", msq.Tempo)
-	log.Printf("beats: %v", msq.Beats)
+	msq.Log()
 }
