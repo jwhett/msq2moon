@@ -8,11 +8,11 @@ import (
 )
 
 type MSQ struct {
-	Notes [][]interface{} `json:"notes"`
-	Loop  bool            `json:"loop"`
-	End   int             `json:"end"`
-	Tempo interface{}     `json:"tempo"`
-	Beats int             `json:"beats"`
+	Notes [][]int `json:"notes"`
+	Loop  bool    `json:"loop"`
+	End   int     `json:"end"`
+	Tempo int     `json:"tempo"`
+	Beats int     `json:"beats"`
 }
 
 func (m *MSQ) Log() {
@@ -24,7 +24,7 @@ func (m *MSQ) Log() {
 }
 
 func main() {
-	var notes = map[int]string{
+	var noteMapping = map[int]string{
 		0:   "NOTE_G5",
 		1:   "NOTE_F5",
 		2:   "NOTE_E5",
@@ -72,5 +72,13 @@ func main() {
 	}
 
 	msq.Log()
-	log.Print(notes)
+	log.Print(noteMapping)
+
+	for _, chord := range msq.Notes {
+		for _, note := range chord {
+			if translation, ok := noteMapping[note]; ok {
+				log.Print(translation)
+			}
+		}
+	}
 }
